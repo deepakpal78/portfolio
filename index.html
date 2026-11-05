@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deepak Pal Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Deepak Pal — full-stack MERN web developer building e-commerce websites and REST APIs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark editorial bands, oversized condensed type, one orange hero block; light "offer" band for rhythm; code card replaces portrait */
+:root{
+  --ink:#0c0b0a;
+  --surface:#151311;
+  --surface-2:#1d1a17;
+  --line:#2c2824;
+  --fg:#f4f0ea;
+  --muted:#a39b91;
+  --accent:#ff5b1a;
+  --accent-deep:#e14a0d;
+  --on-accent:#120a05;
+  --paper:#eeeae3;
+  --paper-fg:#16130f;
+  --paper-muted:#6b635a;
+  --ok:#5fd38d;
+  --f-display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --f-body:"Archivo","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --gut-l:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:.92;letter-spacing:.005em;text-transform:uppercase;margin:0;text-wrap:balance}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.eyebrow b{color:var(--accent);font-weight:500}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:13px 18px;border-radius:2px;border:1px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:var(--fg)}
+.btn-accent{background:var(--accent);color:var(--on-accent)}
+.btn-accent:hover{background:var(--accent-deep)}
+.btn-ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn .arr{display:inline-grid;place-items:center;width:18px;height:18px;background:var(--accent);color:var(--on-accent);font-size:11px}
+.btn-accent .arr{background:var(--on-accent);color:var(--accent)}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:var(--f-display);font-size:24px;text-decoration:none;letter-spacing:.02em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav-links a{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--fg)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--fg);font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;border-radius:2px;cursor:pointer}
+.mobile-menu{border-top:1px solid var(--line)}
+.mobile-menu ul{list-style:none;margin:0;padding:8px 0 16px;display:grid}
+.mobile-menu a{display:block;padding:12px 0;font-family:var(--f-display);font-size:28px;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line)}
+@media (max-width:860px){.nav-links,.nav .btn{display:none}.menu-btn{display:block}}
+
+/* hero */
+.hero{padding-block:20px 0}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:stretch}
+.hero-main{background:var(--accent);color:var(--on-accent);padding:28px 26px 26px;display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden;min-width:0}
+.hero-main .eyebrow{color:var(--on-accent);opacity:.8}
+.hero-name{font-size:clamp(76px,15.5vw,190px);line-height:.84;color:var(--on-accent)}
+.hero-name .outline{color:transparent;-webkit-text-stroke:2px var(--on-accent)}
+.hero-tag{font-size:clamp(17px,2vw,20px);font-weight:600;max-width:30ch;line-height:1.4}
+.hero-tag em{font-style:normal;background:var(--on-accent);color:var(--accent);padding:0 6px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-top:1.5px solid var(--on-accent);padding-top:14px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--on-accent);margin-right:8px;vertical-align:1px;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+.code-card{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.code-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.code-bar .lights{display:flex;gap:6px}
+.code-bar .lights i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.code-bar .lights i:first-child{background:var(--accent)}
+.req{display:flex;gap:10px;align-items:center;padding:14px 16px 0;font-family:var(--f-mono);font-size:13px;flex-wrap:wrap}
+.req .m{background:var(--ok);color:var(--ink);padding:2px 7px;font-weight:500;font-size:11px}
+.req .s{margin-left:auto;color:var(--ok);font-size:12px}
+pre.code{margin:0;padding:14px 16px 18px;font-family:var(--f-mono);font-size:12.5px;line-height:1.7;overflow-x:auto;color:var(--fg);flex:1}
+.k{color:var(--accent)} .str{color:#e9c8a8} .num{color:var(--ok)} .c{color:var(--muted)}
+.cursor{display:inline-block;width:8px;height:15px;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+
+/* ticker */
+.ticker{border-block:1px solid var(--line);margin-top:20px;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;gap:0;animation:scroll 38s linear infinite;padding-block:14px}
+.ticker-track span{font-family:var(--f-display);font-size:28px;text-transform:uppercase;padding:0 22px;color:var(--fg)}
+.ticker-track span:nth-child(even){color:var(--accent)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* commitments strip */
+.commit{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.commit div{padding:26px 18px;border-right:1px solid var(--line);display:grid;gap:6px}
+.commit div:last-child{border-right:0}
+.commit strong{font-family:var(--f-display);font-weight:400;font-size:42px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
+.commit strong i{font-style:normal;color:var(--accent)}
+.commit span{font-size:13px;color:var(--muted);line-height:1.45}
+@media (max-width:720px){.commit{grid-template-columns:1fr 1fr}.commit div:nth-child(2){border-right:0}.commit div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+section{padding-block:84px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:38px}
+.sec-head h2{font-size:clamp(48px,8vw,96px)}
+.sec-head p{max-width:42ch;color:var(--muted)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:200px 1fr;gap:30px}
+.about-text{font-size:clamp(24px,3.6vw,40px);font-weight:600;line-height:1.22;letter-spacing:-.01em;max-width:24ch;text-wrap:balance}
+.about-text .dim{color:var(--muted)}
+.about-text .hl{color:var(--accent)}
+.about-side{display:grid;gap:10px;align-content:start;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.about-side div{border-top:1px solid var(--line);padding-top:10px}
+.about-side b{display:block;color:var(--fg);font-weight:500}
+@media (max-width:720px){.about-grid{grid-template-columns:1fr}}
+
+/* offer (light band) */
+.offer{background:var(--paper);color:var(--paper-fg)}
+.offer .eyebrow{color:var(--paper-muted)}
+.offer .sec-head p{color:var(--paper-muted)}
+.offer-title{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.offer-title .chip{font-family:var(--f-mono);font-size:12px;background:var(--paper-fg);color:var(--paper);padding:6px 10px;letter-spacing:.08em}
+.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--paper-fg)}
+.svc{padding:26px 22px 30px 0;border-bottom:1px solid color-mix(in srgb,var(--paper-fg) 22%,transparent);display:grid;gap:12px;align-content:start;min-width:0}
+.svc:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid color-mix(in srgb,var(--paper-fg) 22%,transparent)}
+.svc .n{font-family:var(--f-mono);font-size:12px;color:var(--accent-deep);letter-spacing:.08em}
+.svc h3{font-size:34px}
+.svc p{color:var(--paper-muted);font-size:15px}
+.svc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;border:1px solid color-mix(in srgb,var(--paper-fg) 30%,transparent);padding:3px 8px}
+@media (max-width:860px){.services{grid-template-columns:1fr 1fr}.svc:not(:nth-child(3n+1)){padding-left:0;border-left:0}.svc:nth-child(even){padding-left:20px;border-left:1px solid color-mix(in srgb,var(--paper-fg) 22%,transparent)}}
+@media (max-width:560px){.services{grid-template-columns:1fr}.svc:nth-child(even){padding-left:0;border-left:0}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line)}
+.step{padding:24px 20px 28px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;min-height:280px}
+.step:last-child{border-right:0}
+.step .num{font-family:var(--f-display);font-size:30px}
+.step h3{font-size:28px;margin-top:auto}
+.step p{font-size:14px;color:var(--muted)}
+.step.on{background:var(--accent);color:var(--on-accent)}
+.step.on p{color:var(--on-accent);opacity:.85}
+.step .when{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}.step{min-height:220px}.step:nth-child(2){border-right:0}.step:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid var(--line);min-height:0}.step:last-child{border-bottom:0}.step h3{margin-top:4px}}
+
+/* packages */
+.pkg-section{background:var(--surface);border-block:1px solid var(--line)}
+.tabs{display:inline-flex;border:1px solid var(--line);padding:4px;gap:4px;background:var(--ink)}
+.tabs button{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;background:none;border:0;color:var(--muted);cursor:pointer;border-radius:1px}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.pkg{background:var(--ink);border:1px solid var(--line);padding:26px 22px;display:flex;flex-direction:column;gap:18px;min-width:0;position:relative}
+.pkg.pop{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.pkg .badge{position:absolute;top:-1px;right:-1px;background:var(--accent);color:var(--on-accent);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px}
+.pkg .tier{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pkg h3{font-size:34px}
+.price{display:flex;align-items:baseline;gap:8px}
+.price strong{font-family:var(--f-display);font-weight:400;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.pkg .desc{color:var(--muted);font-size:14px}
+.pkg .facts{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:12px}
+.pkg .facts span{border:1px solid var(--line);padding:4px 8px}
+.pkg ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14px;border-top:1px solid var(--line);padding-top:16px;flex:1}
+.pkg li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.pkg li::before{content:"→";color:var(--accent);font-family:var(--f-mono)}
+.pkg .btn{justify-content:center}
+.pkg-note{margin-top:18px;font-size:13px;color:var(--muted)}
+@media (max-width:900px){.pkgs{grid-template-columns:1fr}}
+
+/* skills */
+.skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+.skill-col{padding:22px 18px 24px 0;display:grid;gap:14px;align-content:start;border-bottom:1px solid var(--line)}
+.skill-col + .skill-col{padding-left:18px;border-left:1px solid var(--line)}
+.skill-col h3{font-size:26px}
+.skill-col h3 small{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--f-mono);font-size:12px;padding:6px 10px;background:var(--surface-2);border:1px solid var(--line)}
+@media (max-width:860px){.skill-grid{grid-template-columns:1fr 1fr}.skill-col:nth-child(3){padding-left:0;border-left:0}}
+@media (max-width:480px){.skill-grid{grid-template-columns:1fr}.skill-col + .skill-col{padding-left:0;border-left:0}}
+
+/* promise + faq */
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px}
+.promise div{border-top:2px solid var(--accent);padding-top:16px;display:grid;gap:8px}
+.promise h3{font-size:30px}
+.promise p{color:var(--muted);font-size:15px}
+@media (max-width:760px){.promise{grid-template-columns:1fr}}
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:600;font-size:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 22px;color:var(--muted);max-width:65ch}
+
+/* contact */
+.contact{background:var(--accent);color:var(--on-accent)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+.contact h2{font-size:clamp(60px,10vw,128px);color:var(--on-accent)}
+.contact .eyebrow{color:var(--on-accent);opacity:.75}
+.contact-info{display:grid;gap:14px;margin-top:26px;font-size:16px;max-width:40ch}
+.contact-info .row{border-top:1.5px solid var(--on-accent);padding-top:12px;display:grid;gap:2px}
+.contact-info .row small{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.contact-info a{font-weight:700}
+form.brief{background:var(--ink);color:var(--fg);padding:26px 22px;display:grid;gap:16px;min-width:0}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:520px){.f2{grid-template-columns:1fr}}
+.field{display:grid;gap:7px;min-width:0}
+.field label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:12px 12px}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field .err{font-size:12px;color:var(--accent);min-height:0}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.form-foot small{color:var(--muted);font-size:12px}
+.done{display:grid;gap:14px}
+.done h3{font-size:40px;color:var(--accent)}
+.done pre{margin:0;white-space:pre-wrap;font-family:var(--f-mono);font-size:12.5px;background:var(--surface);border:1px solid var(--line);padding:14px;color:var(--fg)}
+.done .acts{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{padding-block:40px 28px;overflow:hidden}
+.foot-name{font-family:var(--f-display);font-size:clamp(64px,17vw,230px);line-height:.85;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.foot-row nav{display:flex;gap:18px;flex-wrap:wrap}
+.foot-row a{text-decoration:none}
+.foot-row a:hover{color:var(--fg)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top">DEEPAK<span>.</span>PAL</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-accent" href="#contact">Start a project <span class="arr">↗</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <ul class="wrap">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-main">
+        <p class="eyebrow">Full-stack web developer · MERN</p>
+        <h1 class="hero-name">Deepak<br><span class="outline">Pal</span></h1>
+        <p class="hero-tag">I build <em>online stores</em> and <em>REST APIs</em> that load fast, look sharp and are ready for real customers.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-dark" href="#packages">See packages <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#contact">Get a free quote</a>
+        </div>
+        <div class="hero-meta">
+          <span><span class="dot"></span>Available for new projects</span>
+          <span>Based in India · Working worldwide</span>
+        </div>
+      </div>
+
+      <div class="code-card" aria-label="Example API response from a store backend">
+        <div class="code-bar">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span>your-store / api</span>
+        </div>
+        <div class="req"><span class="m">GET</span><span>/api/products?limit=2</span><span class="s">200 OK · 84ms</span></div>
+<pre class="code"><span class="c">// what your store's backend returns</span>
+{
+  <span class="k">"success"</span>: <span class="num">true</span>,
+  <span class="k">"products"</span>: [
+    {
+      <span class="k">"name"</span>: <span class="str">"Cotton Kurta"</span>,
+      <span class="k">"price"</span>: <span class="num">899</span>,
+      <span class="k">"inStock"</span>: <span class="num">true</span>
+    },
+    {
+      <span class="k">"name"</span>: <span class="str">"Leather Wallet"</span>,
+      <span class="k">"price"</span>: <span class="num">549</span>,
+      <span class="k">"inStock"</span>: <span class="num">true</span>
+    }
+  ],
+  <span class="k">"builtBy"</span>: <span class="str">"Deepak Pal"</span>
+}<span class="cursor"></span></pre>
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>MongoDB</span><span>Express</span><span>React</span><span>Node.js</span><span>REST APIs</span><span>E-commerce</span><span>Stripe</span><span>Razorpay</span><span>JWT Auth</span><span>Responsive UI</span>
+        <span>MongoDB</span><span>Express</span><span>React</span><span>Node.js</span><span>REST APIs</span><span>E-commerce</span><span>Stripe</span><span>Razorpay</span><span>JWT Auth</span><span>Responsive UI</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="commit">
+        <div><strong>24<i>h</i></strong><span>Reply time on every message, usually much faster</span></div>
+        <div><strong>3–14</strong><span>Days delivery, depending on the package you pick</span></div>
+        <div><strong>100<i>%</i></strong><span>Responsive on phone, tablet and desktop</span></div>
+        <div><strong>14<i>d</i></strong><span>Free bug-fix support after delivery</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-side">
+        <p class="eyebrow"><b>●</b> About me</p>
+        <div><b>Stack</b>MongoDB · Express · React · Node</div>
+        <div><b>Focus</b>E-commerce + APIs</div>
+        <div><b>Works via</b>Fiverr or direct</div>
+      </div>
+      <p class="about-text">I turn your idea into a <span class="hl">working website</span> you can sell from. <span class="dim">Every project starts with a clear plan, gets</span> clean, readable code, <span class="dim">and ends with a site you fully own and know how to use.</span></p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="offer" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="offer-title">
+          <h2>What I offer</h2>
+          <span class="chip">6 SERVICES</span>
+        </div>
+        <p>From a full online store to a single API endpoint. If it runs on the web, I can build it or fix it.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <span class="n">/ E-COMMERCE</span>
+          <h3>Online stores</h3>
+          <p>Product pages, cart, checkout and an admin panel to manage your products and orders.</p>
+          <ul><li>Cart</li><li>Checkout</li><li>Admin</li></ul>
+        </article>
+        <article class="svc">
+          <span class="n">/ BACKEND</span>
+          <h3>REST APIs</h3>
+          <p>Secure Node + Express APIs with MongoDB, login, validation and a ready Postman collection.</p>
+          <ul><li>Node</li><li>Express</li><li>JWT</li></ul>
+        </article>
+        <article class="svc">
+          <span class="n">/ PAYMENTS</span>
+          <h3>Payment setup</h3>
+          <p>Accept cards, UPI and wallets with Stripe or Razorpay, with order confirmation built in.</p>
+          <ul><li>Stripe</li><li>Razorpay</li><li>UPI</li></ul>
+        </article>
+        <article class="svc">
+          <span class="n">/ FRONTEND</span>
+          <h3>Landing pages</h3>
+          <p>Fast, responsive pages for a product, a business or a launch, built to turn visitors into leads.</p>
+          <ul><li>HTML/CSS</li><li>React</li><li>SEO basics</li></ul>
+        </article>
+        <article class="svc">
+          <span class="n">/ DASHBOARDS</span>
+          <h3>Admin panels</h3>
+          <p>Simple dashboards to see orders, users and stock, with add, edit and delete built in.</p>
+          <ul><li>CRUD</li><li>Tables</li><li>Roles</li></ul>
+        </article>
+        <article class="svc">
+          <span class="n">/ SUPPORT</span>
+          <h3>Fixes &amp; updates</h3>
+          <p>Broken layout, slow page or a bug in your JavaScript? I find it, fix it and explain what changed.</p>
+          <ul><li>Bugs</li><li>Speed</li><li>Mobile</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>●</b> Work process</p>
+          <h2>How I work</h2>
+        </div>
+        <p>Four clear steps, so you always know what is happening and what comes next.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1.</span>
+          <span class="when">Day 1</span>
+          <h3>Discovery</h3>
+          <p>We talk about your business, your customers and what the site must do. You get a written scope.</p>
+        </div>
+        <div class="step on">
+          <span class="num">2.</span>
+          <span class="when">Day 1–2</span>
+          <h3>Planning</h3>
+          <p>I plan the pages, database and features, and share a simple layout before writing code.</p>
+        </div>
+        <div class="step">
+          <span class="num">3.</span>
+          <span class="when">Build days</span>
+          <h3>Build</h3>
+          <p>I build in stages and send you a live preview link with progress updates along the way.</p>
+        </div>
+        <div class="step">
+          <span class="num">4.</span>
+          <span class="when">Final day</span>
+          <h3>Delivery</h3>
+          <p>Revisions, final testing, deployment and a short guide on how to manage your site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="pkg-section" id="packages">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>●</b> Pricing</p>
+          <h2>Packages</h2>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Package type">
+          <button role="tab" id="tab-store" aria-selected="true" data-type="store">E-commerce</button>
+          <button role="tab" id="tab-api" aria-selected="false" data-type="api">REST API</button>
+        </div>
+      </div>
+      <div class="pkgs" id="pkgs" role="tabpanel"></div>
+      <p class="pkg-note">Prices in USD. Need something different? Send a brief and I'll quote a custom package.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>●</b> Toolkit</p>
+          <h2>Skills</h2>
+        </div>
+        <p>The MERN stack end to end, plus the tools that get a project tested, shipped and live.</p>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-col">
+          <h3><small>01 · CLIENT</small>Frontend</h3>
+          <div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span><span>React</span><span>Tailwind CSS</span><span>Responsive design</span></div>
+        </div>
+        <div class="skill-col">
+          <h3><small>02 · SERVER</small>Backend</h3>
+          <div class="tags"><span>Node.js</span><span>Express</span><span>REST APIs</span><span>JWT auth</span><span>Validation</span></div>
+        </div>
+        <div class="skill-col">
+          <h3><small>03 · DATA</small>Database</h3>
+          <div class="tags"><span>MongoDB</span><span>Mongoose</span><span>Atlas</span><span>Schema design</span></div>
+        </div>
+        <div class="skill-col">
+          <h3><small>04 · SHIP</small>Tools</h3>
+          <div class="tags"><span>Git &amp; GitHub</span><span>Postman</span><span>Stripe</span><span>Razorpay</span><span>Vercel</span><span>Render</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY + FAQ -->
+  <section id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="promise">
+        <div><h3>You own it all</h3><p>Full source code, database and accounts are handed over to you. No lock-in.</p></div>
+        <div><h3>Clear updates</h3><p>Progress messages and a live preview link, so you never wonder where your project is.</p></div>
+        <div><h3>Clean code</h3><p>Organized folders and readable code that any developer can pick up later.</p></div>
+      </div>
+      <div class="sec-head" style="margin-bottom:18px">
+        <h2>FAQ</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>How do we start and how do I pay?</summary>
+          <p>Send a brief using the form below or message me on Fiverr. I reply with a scope and price. Payment goes through Fiverr, so your money is protected until you approve the delivery.</p>
+        </details>
+        <details>
+          <summary>What do I need to give you?</summary>
+          <p>Your logo, product photos and prices, page text if you have it, and any websites you like the look of. If you don't have text yet, I can add clear placeholder copy.</p>
+        </details>
+        <details>
+          <summary>Can you fix or update my existing website?</summary>
+          <p>Yes. Share the link or code and describe the problem. Small fixes are usually done within one to two days.</p>
+        </details>
+        <details>
+          <summary>Will my site work on phones?</summary>
+          <p>Every page is built mobile-first and tested on phone, tablet and desktop screen sizes before delivery.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Let's work together</p>
+        <h2>Let's build<br>your idea.</h2>
+        <div class="contact-info">
+          <div class="row"><small>Fastest reply</small><a href="https://www.fiverr.com/" target="_blank" rel="noopener">Message me on Fiverr ↗</a></div>
+          <div class="row"><small>Response time</small>Within 24 hours, Monday to Saturday</div>
+          <div class="row"><small>Time zone</small>IST (UTC+5:30), flexible for US &amp; EU calls</div>
+        </div>
+      </div>
+
+      <form class="brief" id="brief" novalidate>
+        <div id="formFields" style="display:grid;gap:16px">
+          <div class="f2">
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" autocomplete="name" placeholder="Priya Sharma" required>
+              <span class="err" id="e-name"></span>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+              <span class="err" id="e-email"></span>
+            </div>
+          </div>
+          <div class="f2">
+            <div class="field">
+              <label for="f-type">Project type</label>
+              <select id="f-type" name="type">
+                <option>E-commerce website</option>
+                <option>REST API</option>
+                <option>Landing page</option>
+                <option>Admin dashboard</option>
+                <option>Fix / update existing site</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-pkg">Package</label>
+              <select id="f-pkg" name="pkg">
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Tell me about your project</label>
+            <textarea id="f-msg" name="msg" placeholder="What are you selling, how many products, any sites you like, and when you need it live." required></textarea>
+            <span class="err" id="e-msg"></span>
+          </div>
+          <div class="form-foot">
+            <small>No spam. I reply within 24 hours.</small>
+            <button class="btn btn-accent" type="submit">Send brief <span class="arr">↗</span></button>
+          </div>
+        </div>
+        <div class="done" id="done" hidden>
+          <h3>Brief ready</h3>
+          <p>Thanks, <span id="d-name"></span>. Copy your brief and send it to me on Fiverr so I can reply with a quote.</p>
+          <pre id="d-text"></pre>
+          <div class="acts">
+            <button class="btn btn-accent" type="button" id="copyBtn">Copy brief</button>
+            <a class="btn btn-ghost" href="https://www.fiverr.com/" target="_blank" rel="noopener">Open Fiverr ↗</a>
+            <button class="btn btn-ghost" type="button" id="editBtn">Edit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-name">Deepak Pal</div>
+    <div class="foot-row">
+      <span>© 2026 Deepak Pal · Full-stack web developer</span>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // mobile menu
+  var menuBtn=document.getElementById('menuBtn'), menu=document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click',function(){
+    var open=menu.hidden; menu.hidden=!open;
+    menuBtn.setAttribute('aria-expanded',String(open)); menuBtn.textContent=open?'Close':'Menu';
+  });
+  menu.addEventListener('click',function(e){ if(e.target.tagName==='A'){menu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='Menu';} });
+
+  // packages
+  var PKGS={
+    store:[
+      {tier:'Starter',name:'Shop Starter',price:90,days:5,rev:2,desc:'A clean store to start selling a small catalog.',items:['Up to 5 pages','Up to 15 products','Product pages + cart','Contact form','Mobile responsive']},
+      {tier:'Business',name:'Shop Pro',price:180,days:8,rev:3,pop:true,desc:'A complete store with login, payments and admin.',items:['Up to 10 pages','Up to 50 products','User login & signup','Checkout with Stripe or Razorpay','Admin panel to add products','Order confirmation emails']},
+      {tier:'Premium',name:'Shop Max',price:350,days:14,rev:5,desc:'Full MERN store ready to scale and grow.',items:['Unlimited products','Full admin dashboard (orders, stock, users)','Search, filters & categories','Coupons & discounts','SEO basics + speed tuning','Deployment & domain setup']}
+    ],
+    api:[
+      {tier:'Basic',name:'API Basic',price:40,days:3,rev:1,desc:'A small, clean API for one resource.',items:['Up to 5 endpoints','Node.js + Express','MongoDB database','Postman collection']},
+      {tier:'Standard',name:'API Pro',price:90,days:5,rev:2,pop:true,desc:'A secure API with users and authentication.',items:['Up to 12 endpoints','JWT login & signup','Input validation & error handling','API documentation','Postman collection']},
+      {tier:'Premium',name:'API Max',price:170,days:8,rev:3,desc:'A production-ready backend for your app.',items:['Up to 25 endpoints','Auth with user roles','File & image uploads','Payment or third-party API integration','Deployed on Render or Railway']}
+    ]
+  };
+  var pkgEl=document.getElementById('pkgs'), pkgSel=document.getElementById('f-pkg'), typeSel=document.getElementById('f-type');
+  var current='store';
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function render(type){
+    current=type;
+    pkgEl.innerHTML=PKGS[type].map(function(p,i){
+      return '<article class="pkg'+(p.pop?' pop':'')+'">'+
+        (p.pop?'<span class="badge">Most picked</span>':'')+
+        '<span class="tier">'+esc(p.tier)+'</span>'+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<div class="price"><strong>$'+p.price+'</strong><span>one-time</span></div>'+
+        '<p class="desc">'+esc(p.desc)+'</p>'+
+        '<div class="facts"><span>'+p.days+'-day delivery</span><span>'+p.rev+' revision'+(p.rev>1?'s':'')+'</span></div>'+
+        '<ul>'+p.items.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul>'+
+        '<button class="btn '+(p.pop?'btn-accent':'btn-ghost')+'" type="button" data-pick="'+i+'">Choose '+esc(p.name)+'</button>'+
+      '</article>';
+    }).join('');
+    document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.type===type));});
+  }
+  // build package select with all options
+  ['store','api'].forEach(function(t){
+    PKGS[t].forEach(function(p){var o=document.createElement('option');o.textContent=p.name+' ($'+p.price+')';pkgSel.appendChild(o);});
+  });
+  document.querySelector('.tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)render(b.dataset.type);});
+  pkgEl.addEventListener('click',function(e){
+    var b=e.target.closest('[data-pick]'); if(!b)return;
+    var p=PKGS[current][+b.dataset.pick];
+    pkgSel.value=p.name+' ($'+p.price+')';
+    typeSel.value=current==='store'?'E-commerce website':'REST API';
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){document.getElementById('f-name').focus({preventScroll:true});},500);
+  });
+  render('store');
+
+  // form
+  var form=document.getElementById('brief'), fields=document.getElementById('formFields'), done=document.getElementById('done');
+  function setErr(id,msg){document.getElementById('e-'+id).textContent=msg;}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.name.value.trim(), email=form.email.value.trim(), msg=form.msg.value.trim(), ok=true;
+    setErr('name','');setErr('email','');setErr('msg','');
+    if(!name){setErr('name','Add your name so I know who to reply to.');ok=false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setErr('email','Enter an email like you@company.com.');ok=false;}
+    if(msg.length<15){setErr('msg','Add a few more details, at least one or two sentences.');ok=false;}
+    if(!ok)return;
+    var text='Hi Deepak,\n\nName: '+name+'\nEmail: '+email+'\nProject: '+typeSel.value+'\nPackage: '+pkgSel.value+'\n\n'+msg;
+    document.getElementById('d-name').textContent=name.split(' ')[0];
+    document.getElementById('d-text').textContent=text;
+    fields.hidden=true; done.hidden=false;
+  });
+  document.getElementById('editBtn').addEventListener('click',function(){done.hidden=true;fields.hidden=false;});
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var btn=this, pre=document.getElementById('d-text');
+    function selectIt(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected, press copy';}
+    try{
+      navigator.clipboard.writeText(pre.textContent).then(function(){btn.textContent='Copied';},selectIt);
+    }catch(err){selectIt();}
+  });
+})();
+</script>
+</body>
+</html>
